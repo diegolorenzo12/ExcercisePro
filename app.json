@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "gym-tracker",
-    "slug": "gym-tracker",
+    "name": "my_amplify_app",
+    "slug": "my_amplify_app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,7 +19,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.gymtracker"
+      "package": "com.anonymous.my_amplify_app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

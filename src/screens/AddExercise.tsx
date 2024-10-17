@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types';
 import { Searchbar } from 'react-native-paper';
 import { Divider } from 'react-native-paper';
-import axios from 'axios'; // Add this import at the top
+import axios from 'axios';
 import { Exercise } from '../navigation/types';
 
 
@@ -27,7 +27,7 @@ const AddExercise: React.FC<AddExerciseProps> = ({ navigation, route }) => {
                     const response = await axios.get<Exercise[]>(`https://exercisedb.p.rapidapi.com/exercises/name/${searchQuery}?offset=0&limit=10`, {
                         headers: {
                             'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
-                            'x-rapidapi-key': '4202c83d0dmsh020c3de45519073p102078jsnca4eb9d3f1f4',
+                            'x-rapidapi-key': process.env.RAPIDAPI_KEY,
                         },
                     });
                     console.log(response.data[0])
