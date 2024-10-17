@@ -1,0 +1,83 @@
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../navigation/types';
+import { RouteProp } from '@react-navigation/native';
+import { generateClient } from 'aws-amplify/data';
+import type { Schema } from '@/amplify/data/resource';
+
+
+const client = generateClient<Schema>();
+type ExerciseDetailsProps = {
+    navigation: StackNavigationProp<RootStackParamList, 'ExerciseDetails'>;
+    route: RouteProp<RootStackParamList, 'ExerciseDetails'>;
+};
+
+const ExerciseDetails: React.FC<ExerciseDetailsProps> = ({ navigation, route }) => {
+    const { exercise } = route.params;
+    const { routine } = route.params;
+    console.log(exercise)
+
+    const handleAddExercise = async () => {
+        if (!exercise || !routine) {
+            console.log("Exercise or Routine is undefined");
+            return;
+        }
+
+        try {
+            const newExercise = await client.models.Exercise.create({
+                name: exercise.name,
+                bodyPart: exercise.bodyPart,
+                equipment: exercise.equipment,
+                target: exercise.target,
+                gifUrl: exercise.gifUrl,
+                routineId: routine.id
+            });
+
+            console.log("Exercise added to routine:", newExercise);
+            navigation.navigate('Home')
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    return (
+        <View className="bg-black h-full">
+            <ScrollView className="flex-1 bg-gray-800 rounded-t-lg p-4 pb-10">
+                <View className="flex flex-col items-center mb-10">
+                    <Text className="text-white text-3xl text-center mb-4">{exercise?.name}</Text>
+                    <Image
+                        source={{ uri: exercise?.gifUrl }}
+                        className="w-64 h-64 mb-4 items-center"
+                        resizeMode="contain"
+                    />
+                    <View className="w-full mb-4 items-left">
+                        <View className="pl-4">
+                            <Text className="text-white text-xl mb-1">• Body Part: {exercise?.bodyPart}</Text>
+                            <Text className="text-white text-xl mb-1">• Equipment: {exercise?.equipment}</Text>
+                            <Text className="text-white text-xl mb-1">• Target: {exercise?.target}</Text>
+                            <Text className="text-white text-xl mb-1">• Secondary Muscles:</Text>
+                            <View className="pl-4">
+                                {exercise?.secondaryMuscles.map((muscle, index) => (
+                                    <Text key={index} className="text-white text-lg mb-1">- {muscle}</Text>
+                                ))}
+                            </View>
+                        </View>
+                        <Text className="text-white text-2xl my-4">Instructions:</Text>
+                        {exercise?.instructions.map((instruction, index) => (
+                            <Text key={index} className="text-white text-lg mb-1 text-left">• {instruction}</Text>
+                        ))}
+                    </View>
+                </View>
+            </ScrollView>
+            <TouchableOpacity
+                className="bg-blue-500 py-3 px-6 rounded-full m-4"
+                onPress={handleAddExercise}
+            >
+                <Text className="text-white text-lg text-center">Add Exercise</Text>
+            </TouchableOpacity>
+        </View>
+    )
+}
+
+export default ExerciseDetails;
