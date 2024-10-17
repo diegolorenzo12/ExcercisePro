@@ -6,7 +6,9 @@ import { RootStackParamList } from '../navigation/types';
 import { Searchbar } from 'react-native-paper';
 import { Divider } from 'react-native-paper';
 import axios from 'axios';
-import { Exercise } from '../navigation/types';
+import { Exercise as ExerciseType } from '../navigation/types';
+import { generateClient } from 'aws-amplify/data';
+import type { Schema } from '@/amplify/data/resource';
 
 
 type AddExerciseProps = {
@@ -14,17 +16,20 @@ type AddExerciseProps = {
     route: RouteProp<RootStackParamList, 'AddExercise'>;
 };
 
+
 const AddExercise: React.FC<AddExerciseProps> = ({ navigation, route }) => {
     const [searchQuery, setSearchQuery] = React.useState('');
-    const [exercises, setExercises] = React.useState<Exercise[]>([]); // Add state for exercises
+    const [exercises, setExercises] = React.useState<ExerciseType[]>([]); // Add state for exercises
     const [loading, setLoading] = React.useState(false); // Add loading state
+
+    const routine = route.params.routine;
 
     React.useEffect(() => {
         const fetchExercises = async () => {
             if (searchQuery) {
                 setLoading(true);
                 try {
-                    const response = await axios.get<Exercise[]>(`https://exercisedb.p.rapidapi.com/exercises/name/${searchQuery}?offset=0&limit=10`, {
+                    const response = await axios.get<ExerciseType[]>(`https://exercisedb.p.rapidapi.com/exercises/name/${searchQuery}?offset=0&limit=10`, {
                         headers: {
                             'x-rapidapi-host': 'exercisedb.p.rapidapi.com',
                             'x-rapidapi-key': process.env.RAPIDAPI_KEY,
@@ -42,6 +47,7 @@ const AddExercise: React.FC<AddExerciseProps> = ({ navigation, route }) => {
 
         fetchExercises();
     }, [searchQuery]); // Fetch exercises when searchQuery changes
+
 
     return (
         <View className="bg-black h-full">
@@ -61,7 +67,7 @@ const AddExercise: React.FC<AddExerciseProps> = ({ navigation, route }) => {
                         exercises.map((exercise) => (
                             <TouchableOpacity
                                 key={exercise.id}
-                                onPress={() => navigation.navigate('ExerciseDetails', { routine: route.params.routine, exercise: exercise })}
+                                onPress={() => navigation.navigate('ExerciseDetails', { routine: routine, exercise: exercise })}
                             >
                                 <View>
                                     <Text className="m-2 text-white text-xl text-left">

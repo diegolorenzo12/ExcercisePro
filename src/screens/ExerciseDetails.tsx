@@ -34,8 +34,45 @@ const ExerciseDetails: React.FC<ExerciseDetailsProps> = ({ navigation, route }) 
                 routineId: routine.id
             });
 
+            if (exercise.secondaryMuscles) {
+                await Promise.all(exercise.secondaryMuscles.map(async (muscleId) => {
+                    if (newExercise.data !== null) {
+                        // Fetch the muscle details
+                        const muscle = await client.models.Muscle.get({ id: muscleId }); // Wrap muscleId in an object
+                        if (muscle.data !== null) {
+                            await client.models.ExerciseMuscle.create({
+                                muscleId: muscle.data.id,
+                                exerciseId: newExercise.data.id,
+                            });
+                        } else {
+                            const muscle = await client.models.Muscle.create({
+                                name: muscleId,
+                            }).then(async (muscle) => {
+                                if (muscle.data !== null && newExercise.data !== null) {
+                                    await client.models.ExerciseMuscle.create({
+                                        muscleId: muscle.data.id,
+                                        exerciseId: newExercise.data.id,
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }));
+            }
+
+            if (exercise.instructions) {
+                await Promise.all(exercise.instructions.map(async (instruction) => {
+                    if (newExercise.data !== null) {
+                        await client.models.Instruction.create({
+                            content: instruction,
+                            exerciseId: newExercise.data.id
+                        });
+                    }
+                }));
+            }
+
             console.log("Exercise added to routine:", newExercise);
-            navigation.navigate('Home')
+            navigation.navigate('Routine', { routine: routine })
         } catch (error) {
             console.log(error)
         }

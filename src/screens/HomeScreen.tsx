@@ -7,7 +7,12 @@ import type { Schema } from '@/amplify/data/resource';
 import { Divider } from 'react-native-paper';
 
 
-type Routine = Schema['Routine']['type'];
+//type Routine = Schema['Routine']['type'];
+
+type Routine = Schema['Routine']['type'] & {
+    owner?: string | null; // Allow owner to be optional and nullable
+};
+
 
 const client = generateClient<Schema>();
 type HomeScreenProps = {
@@ -96,7 +101,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
                         </TouchableOpacity>
                         <ScrollView className="w-full">
                             {routines.map((routine) => (
-                                <TouchableOpacity key={routine.id} onPress={() => navigation.navigate('RoutineDetails', { routineId: routine.id })}>
+                                <TouchableOpacity key={routine.id} onPress={() => navigation.navigate('Routine', { routine: routine })}>
                                     <Divider />
                                     <Text className="text-white text-xl text-left p-4">{routine.name}</Text>
                                     <Divider />

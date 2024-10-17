@@ -1,3 +1,5 @@
+import type { Schema } from '@/amplify/data/resource';
+
 export type RootStackParamList = {
     Home: undefined;
     Routine: { routine?: Routine }; // Define the routine parameter
@@ -5,7 +7,11 @@ export type RootStackParamList = {
     CreateRoutine: undefined;
     AddExercise: { routine?: Routine };
     ExerciseDetails: { routine?: Routine, exercise?: Exercise };
+    EditExercise: { routine?: Routine, exercise?: ExerciseSchea };
 }
+
+type ExerciseSchea = Schema['Exercise']['type'];
+
 
 export type Routine = {
     createdAt: string;

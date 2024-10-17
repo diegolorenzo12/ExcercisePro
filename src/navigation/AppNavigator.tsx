@@ -12,6 +12,7 @@ import CreateRoutine from '../screens/CreateRoutine';
 import AddExercise from '../screens/AddExercise';
 import ExerciseDetails from '../screens/ExerciseDetails';
 import { RootStackParamList } from './types';
+import ExerciseEdit from '../screens/EditExerciseDetails';
 
 type ProfileButtonNavigationProp = StackNavigationProp<RootStackParamList, 'Profile'>;
 
@@ -40,6 +41,7 @@ const AppNavigator = () => {
                 <Stack.Screen name="CreateRoutine" component={CreateRoutine} />
                 <Stack.Screen name="AddExercise" component={AddExercise} />
                 <Stack.Screen name="ExerciseDetails" component={ExerciseDetails} />
+                <Stack.Screen name="EditExercise" component={ExerciseEdit} />
             </Stack.Navigator>
         </NavigationContainer>
     );
