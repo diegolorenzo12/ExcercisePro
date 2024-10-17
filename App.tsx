@@ -10,7 +10,7 @@ Amplify.configure(outputs);
 
 const App = () => {
     return (
-        <View className="bg-black h-full">
+        <View className="h-full bg-black">
             <Authenticator.Provider>
                 <Authenticator>
                     <StatusBar barStyle="light-content" backgroundColor="black" />

@@ -87,14 +87,24 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
                         </TouchableOpacity>
                     </View>
                 ) : (
-                    <ScrollView>
-                        {routines.map((routine) => (
-                            <TouchableOpacity key={routine.id} onPress={() => navigation.navigate('RoutineDetails', { routineId: routine.id })}>
-                                <Divider />
-                                <Text>{routine.name}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </ScrollView>
+                    <>
+                        <TouchableOpacity
+                            className="bg-blue-600 my-5 py-3 px-4 rounded-full w-1/2"
+                            onPress={() => navigation.navigate('CreateRoutine')}
+                        >
+                            <Text className="text-white text-lg text-center">Create routine</Text>
+                        </TouchableOpacity>
+                        <ScrollView className="w-full">
+                            {routines.map((routine) => (
+                                <TouchableOpacity key={routine.id} onPress={() => navigation.navigate('RoutineDetails', { routineId: routine.id })}>
+                                    <Divider />
+                                    <Text className="text-white text-xl text-left p-4">{routine.name}</Text>
+                                    <Divider />
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+
+                    </>
                 )}
             </View>
         </View>
