@@ -43,16 +43,6 @@ const ExerciseEdit: React.FC<ExerciseEditProps> = ({ navigation, route }) => {
         }
     };
 
-    console.log(exercise)
-
-    React.useEffect(() => {
-        const sub = client.models.Muscle.list({
-            filter: (m) => m.id('in', uniqueMuscleIds)
-        }).then((muscles) => {
-            console.log("muscles")
-            console.log(muscles)
-        })
-    }, []);
 
     React.useEffect(() => {
         if (exercise) {

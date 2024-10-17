@@ -2,15 +2,19 @@ import type { Schema } from '@/amplify/data/resource';
 
 export type RootStackParamList = {
     Home: undefined;
-    Routine: { routine?: Routine }; // Define the routine parameter
+    Routine: { routine?: RoutineSchema }; // Define the routine parameter
     Profile: undefined;
     CreateRoutine: undefined;
-    AddExercise: { routine?: Routine };
-    ExerciseDetails: { routine?: Routine, exercise?: Exercise };
-    EditExercise: { routine?: Routine, exercise?: ExerciseSchea };
+    AddExercise: { routine?: RoutineSchema };
+    ExerciseDetails: { routine?: RoutineSchema, exercise?: Exercise };
+    EditExercise: { routine?: RoutineSchema, exercise?: ExerciseSchema };
 }
 
-type ExerciseSchea = Schema['Exercise']['type'];
+type ExerciseSchema = Schema['Exercise']['type'];
+type RoutineSchema = Schema['Routine']['type'] & {
+    owner?: string | null; // Allow owner to be optional and nullable
+};
+
 
 
 export type Routine = {

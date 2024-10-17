@@ -32,50 +32,6 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
     }, []);
 
 
-    const closeRow = (rowMap, rowKey) => {
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-        }
-    };
-
-    const deleteRow = (rowMap, rowKey) => {
-        closeRow(rowMap, rowKey);
-        const newData = [...routines];
-        const prevIndex = routines.findIndex(item => item.id === rowKey); // Adjusted to use routine id
-        newData.splice(prevIndex, 1);
-        setRoutines(newData);
-    };
-
-    const onRowDidOpen = rowKey => {
-        console.log('This row opened', rowKey);
-    };
-
-    const renderItem = ({ item }) => {
-        // Render individual list items
-        return (
-            // Your list item component JSX
-            <View>
-                <Text>{item.name}</Text>
-            </View>
-        );
-    };
-
-    const renderLeftActions = (item) => {
-        // Render left swipe actions for each item
-        return (
-            // Your left actions component JSX
-            <Text>Left</Text>
-        );
-    };
-
-    const renderRightActions = (item) => {
-        // Render right swipe actions for each item
-        return (
-            // Your right actions component JSX
-            <Text>Right</Text>
-        );
-    };
-
     return (
         <View className="bg-black w-full h-full">
             <View className="bg-gray-800 px-6 rounded-t-lg h-full w-full justify-evenly items-center flex">
