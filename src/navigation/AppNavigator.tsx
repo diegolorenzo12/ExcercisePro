@@ -13,10 +13,16 @@ import AddExercise from '../screens/AddExercise';
 import ExerciseDetails from '../screens/ExerciseDetails';
 import { RootStackParamList } from './types';
 import ExerciseEdit from '../screens/EditExerciseDetails';
+import { RoutineScreenProps } from '../screens/RoutineScreen';
+
+
 
 type ProfileButtonNavigationProp = StackNavigationProp<RootStackParamList, 'Profile'>;
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
 
 const ProfileButton = () => {
     const navigation = useNavigation<ProfileButtonNavigationProp>(); // Specify the navigation type

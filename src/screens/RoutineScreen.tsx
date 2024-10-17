@@ -6,11 +6,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/types';
 import { Routine } from '../navigation/types';
 import { RouteProp } from '@react-navigation/native';
-import { Searchbar, Divider } from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 
 
 
-type RoutineScreenProps = {
+export type RoutineScreenProps = {
     navigation: StackNavigationProp<RootStackParamList, 'Routine'>;
     route: RouteProp<RootStackParamList, 'Routine'>;
 };

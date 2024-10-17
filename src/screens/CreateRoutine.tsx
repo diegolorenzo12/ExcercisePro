@@ -37,17 +37,10 @@ export default function CreateRoutine({ navigation }: CreateRoutineProps) {
                 alert("Failed to create routine. Please try again.")
                 return
             }
-            const routine = {
-                id: newRoutine.id,
-                name: newRoutine.name,
-                exercises: [],
-                createdAt: newRoutine.createdAt,
-                updatedAt: newRoutine.updatedAt,
-                owner: newRoutine.owner || ''
-            }
+
 
             console.log('Routine Created:', newRoutine)
-            navigation.navigate('Routine', { routine: routine });
+            navigation.navigate('Routine', { routine: newRoutine });
         } catch (error) {
             console.error('Error creating routine:', error)
         }

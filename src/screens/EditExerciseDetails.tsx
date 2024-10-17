@@ -67,7 +67,7 @@ const ExerciseEdit: React.FC<ExerciseEditProps> = ({ navigation, route }) => {
                 <View className="flex flex-col items-center mb-10">
                     <Text className="text-white text-3xl text-center mb-4">{exercise?.name}</Text>
                     <Image
-                        source={{ uri: exercise?.gifUrl }}
+                        source={{ uri: exercise?.gifUrl || undefined }} // Ensure uri is either a string or undefined
                         className="w-64 h-64 mb-4 items-center"
                         resizeMode="contain"
                     />
